@@ -128,7 +128,7 @@
             transform: translateY(0);
         }
 
-        .theme-btn, .print-btn {
+        .theme-btn, .print-btn, .lang-switch-btn, .share-btn {
             background-color: #0b2545;
             color: white;
             border: none;
@@ -136,7 +136,8 @@
             height: 40px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
+            font-weight: bold;
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             display: flex;
             align-items: center;
@@ -145,7 +146,7 @@
             text-decoration: none;
         }
 
-        .theme-btn:hover, .print-btn:hover {
+        .theme-btn:hover, .print-btn:hover, .lang-switch-btn:hover, .share-btn:hover {
             background-color: #13385e;
             transform: scale(1.1);
         }
@@ -662,6 +663,28 @@
         .footer-socials .fa-whatsapp { color: #25d366; }
         .footer-socials .fa-envelope { color: #ea4335; }
 
+        /* Copy Notification Toast */
+        .copy-toast {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: #0b2545;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .copy-toast.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
         /* 🖨️ প্রিন্ট করার সময় নিখুঁত A4 সাইজে সেট হবে */
         @media print {
             @page {
@@ -673,7 +696,7 @@
                 color: #333 !important;
                 padding: 0;
             }
-            .speed-dial-container, .cv-footer {
+            .speed-dial-container, .cv-footer, .copy-toast {
                 display: none !important;
             }
             .cv-container {
@@ -712,23 +735,33 @@
             }
             .profile-img {
                 animation: none !important;
-                box-shadow: 3px solid #ffffff !important;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- 🎯 Floating Speed Dial Menu (Popup Menu) -->
+    <!-- 📋 Copy Link Notification Toast -->
+    <div class="copy-toast" id="copyToast">CV Link Copied to Clipboard!</div>
+
+    <!-- 🎯 Floating Speed Dial Menu (Popup Menu with Share Button) -->
     <div class="speed-dial-container" id="speedDial">
         <button class="main-toggle-btn" id="toggleDialBtn" title="Open Menu">
             <i class="fa-solid fa-chevron-up"></i>
         </button>
 
         <div class="sub-buttons">
+            <!-- Share CV Link Button -->
+            <button class="share-btn" id="shareBtn" title="Share CV Link">
+                <i class="fa-solid fa-share-nodes"></i>
+            </button>
+            <!-- Language Switch Button -->
+            <button class="lang-switch-btn" id="langSwitchBtn" title="Switch Language (EN/BN)">BN</button>
+            <!-- Theme Toggle Button -->
             <button class="theme-btn" id="themeToggleBtn" title="Toggle Dark/Light Mode">
                 <i class="fa-solid fa-moon" id="themeIcon"></i>
             </button>
+            <!-- PDF Download Button -->
             <a href="cv2200.pdf" download="MD_SAIFUL_ISLAM_CV.pdf" class="print-btn" title="Download PDF CV">
                 <i class="fa-solid fa-file-pdf"></i>
             </a>
@@ -748,7 +781,7 @@
 
             <!-- Contact Section -->
             <div class="sidebar-section">
-                <h3><i class="fa-solid fa-address-book"></i> CONTACT</h3>
+                <h3 data-en="<i class='fa-solid fa-address-book'></i> CONTACT" data-bn="<i class='fa-solid fa-address-book'></i> যোগাযোগ"><i class="fa-solid fa-address-book"></i> CONTACT</h3>
                 <ul class="contact-list">
                     <li>
                         <i class="fa-solid fa-phone"></i>
@@ -767,40 +800,40 @@
                     </li>
                     <li>
                         <i class="fa-solid fa-location-dot"></i>
-                        <span>Al-Rahmaniya, Jeddah, Saudi Arabia.<br><small>(Current Address)</small></span>
+                        <span data-en="Al-Rahmaniya, Jeddah, Saudi Arabia.<br><small>(Current Address)</small>" data-bn="আল-রহমানিয়া, জেদ্দা, সৌদি আরব。<br><small>(বর্তমান ঠিকানা)</small>">Al-Rahmaniya, Jeddah, Saudi Arabia.<br><small>(Current Address)</small></span>
                     </li>
                     <li>
                         <i class="fa-solid fa-house"></i>
-                        <span>Pascihim Fatehabad, Debidwar - 3542, Debidwer Powrosobah, Word No 03, Holding No 655, Debidwer Cumilla.<br><small>(Permanent Address)</small></span>
+                        <span data-en="Pascihim Fatehabad, Debidwar - 3542, Debidwer Powrosobah, Word No 03, Holding No 655, Debidwer Cumilla.<br><small>(Permanent Address)</small>" data-bn="পশ্চিম ফতেহাবাদ, দেবিদ্বার - ৩৫৪২, দেবিদ্বার পৌরসভা, ওয়ার্ড নং ০৩, হোল্ডিং নং ৬৫৫, দেবিদ্বার, কুমিল্লা。<br><small>(স্থায়ী ঠিকানা)</small>">Pascihim Fatehabad, Debidwar - 3542, Debidwer Powrosobah, Word No 03, Holding No 655, Debidwer Cumilla.<br><small>(Permanent Address)</small></span>
                     </li>
                 </ul>
             </div>
 
             <!-- Personal Information -->
             <div class="sidebar-section">
-                <h3><i class="fa-solid fa-user"></i> PERSONAL INFORMATION</h3>
+                <h3 data-en="<i class='fa-solid fa-user'></i> PERSONAL INFORMATION" data-bn="<i class='fa-solid fa-user'></i> ব্যক্তিগত তথ্য"><i class="fa-solid fa-user"></i> PERSONAL INFORMATION</h3>
                 <div class="info-list">
                     <table>
-                        <tr><td>Full Name</td><td>:</td><td>MD. SAIFUL ISLAM</td></tr>
-                        <tr><td>Father's Name</td><td>:</td><td>SHOPON MIA</td></tr>
-                        <tr><td>Mother's Name</td><td>:</td><td>TASLIMA AKTER</td></tr>
-                        <tr><td>Date of Birth</td><td>:</td><td>08 September 2001</td></tr>
-                        <tr><td>Nationality</td><td>:</td><td>Bangladeshi</td></tr>
-                        <tr><td>NID No.</td><td>:</td><td>-------</td></tr>
-                        <tr><td>Blood Group</td><td>:</td><td>B+</td></tr>
-                        <tr><td>Marital Status</td><td>:</td><td>Married</td></tr>
-                        <tr><td>Religion</td><td>:</td><td>Islam</td></tr>
+                        <tr><td data-en="Full Name" data-bn="পূর্ণ নাম">Full Name</td><td>:</td><td>MD. SAIFUL ISLAM</td></tr>
+                        <tr><td data-en="Father's Name" data-bn="পিতার নাম">Father's Name</td><td>:</td><td data-en="SHOPON MIA" data-bn="স্বপন মিয়া">SHOPON MIA</td></tr>
+                        <tr><td data-en="Mother's Name" data-bn="মাতার নাম">Mother's Name</td><td>:</td><td data-en="TASLIMA AKTER" data-bn="তাসলিমা আক্তার">TASLIMA AKTER</td></tr>
+                        <tr><td data-en="Date of Birth" data-bn="জন্ম তারিখ">Date of Birth</td><td>:</td><td data-en="08 September 2001" data-bn="০৮ সেপ্টেম্বর ২০০১">08 September 2001</td></tr>
+                        <tr><td data-en="Nationality" data-bn="জাতীয়তা">Nationality</td><td>:</td><td data-en="Bangladeshi" data-bn="বাংলাদেশী">Bangladeshi</td></tr>
+                        <tr><td data-en="NID No." data-bn="এনআইডি নং">NID No.</td><td>:</td><td>-------</td></tr>
+                        <tr><td data-en="Blood Group" data-bn="রক্তের গ্রুপ">Blood Group</td><td>:</td><td>B+</td></tr>
+                        <tr><td data-en="Marital Status" data-bn="বৈবাহিক অবস্থা">Marital Status</td><td>:</td><td data-en="Married" data-bn="বিবাহিত">Married</td></tr>
+                        <tr><td data-en="Religion" data-bn="ধর্ম">Religion</td><td>:</td><td data-en="Islam" data-bn="ইসলাম">Islam</td></tr>
                     </table>
                 </div>
             </div>
 
             <!-- Languages with Percentage Counters -->
             <div class="sidebar-section">
-                <h3><i class="fa-solid fa-language"></i> LANGUAGES</h3>
+                <h3 data-en="<i class='fa-solid fa-language'></i> LANGUAGES" data-bn="<i class='fa-solid fa-language'></i> ভাষাগত দক্ষতা"><i class="fa-solid fa-language"></i> LANGUAGES</h3>
                 
                 <div class="lang-container">
                     <div class="lang-info">
-                        <span>Bangla (Mother Tongue)</span>
+                        <span data-en="Bangla (Mother Tongue)" data-bn="বাংলা (মাতৃভাষা)">Bangla (Mother Tongue)</span>
                         <span class="lang-percent" data-target="100">0%</span>
                     </div>
                     <div class="lang-bar-bg">
@@ -810,7 +843,7 @@
 
                 <div class="lang-container">
                     <div class="lang-info">
-                        <span>English</span>
+                        <span data-en="English" data-bn="ইংরেজি">English</span>
                         <span class="lang-percent" data-target="50">0%</span>
                     </div>
                     <div class="lang-bar-bg">
@@ -820,7 +853,7 @@
 
                 <div class="lang-container">
                     <div class="lang-info">
-                        <span>Arabic</span>
+                        <span data-en="Arabic" data-bn="আরবি">Arabic</span>
                         <span class="lang-percent" data-target="40">0%</span>
                     </div>
                     <div class="lang-bar-bg">
@@ -842,7 +875,7 @@
             <div class="header-title">
                 <div class="header-text-area">
                     <h1>MD. SAIFUL ISLAM</h1>
-                    <p>B.B.A (Hon's), Accounting Department </br> National University (NU)</p>
+                    <p data-en="B.B.A (Hon's), Accounting Department <br> National University (NU)" data-bn="বিবিএ (সম্মান), হিসাববিজ্ঞান বিভাগ <br> জাতীয় বিশ্ববিদ্যালয় (এনইউ)">B.B.A (Hon's), Accounting Department </br> National University (NU)</p>
                 </div>
                 <!-- 🕒 Header Right Analog Clock Widget -->
                 <div class="analog-clock">
@@ -859,70 +892,70 @@
 
             <!-- Professional Summary -->
             <div class="main-section">
-                <h2><i class="fa-solid fa-user-tie"></i> PROFESSIONAL SUMMARY</h2>
-                <p>I am a responsible and motivated professional driver with 1 year of driving experience and a valid Saudi driving license. I have 4 years of computer experience and strong knowledge in computer operations. I am seeking a Driver position where I can contribute my skills, maintain safety, and perform with honesty and dedication.</p>
+                <h2 data-en="<i class='fa-solid fa-user-tie'></i> PROFESSIONAL SUMMARY" data-bn="<i class='fa-solid fa-user-tie'></i> পেশাগত সারাংশ"><i class="fa-solid fa-user-tie"></i> PROFESSIONAL SUMMARY</h2>
+                <p data-en="I am a responsible and motivated professional driver with 1 year of driving experience and a valid Saudi driving license. I have 4 years of computer experience and strong knowledge in computer operations. I am seeking a Driver position where I can contribute my skills, maintain safety, and perform with honesty and dedication." data-bn="আমি ১ বছরের ড্রাইভিং অভিজ্ঞতা এবং বৈধ সৌদি ড্রাইভিং লাইসেন্সসহ একজন দায়িত্বশীল এবং দক্ষ প্রফেশনাল ড্রাইভার। আমার কম্পিউটার চালনায় ৪ বছরের অভিজ্ঞতা এবং দৃঢ় জ্ঞান রয়েছে। আমি এমন একটি ড্রাইভার পজিশন খুঁজছি যেখানে আমি আমার দক্ষতা প্রয়োগ করতে পারি, নিরাপত্তা বজায় রাখতে পারি এবং সততা ও নিষ্ঠার সাথে দায়িত্ব পালন করতে পারি।">I am a responsible and motivated professional driver with 1 year of driving experience and a valid Saudi driving license. I have 4 years of computer experience and strong knowledge in computer operations. I am seeking a Driver position where I can contribute my skills, maintain safety, and perform with honesty and dedication.</p>
             </div>
 
             <!-- Work Experience -->
             <div class="main-section">
-                <h2><i class="fa-solid fa-briefcase"></i> WORK EXPERIENCE</h2>
+                <h2 data-en="<i class='fa-solid fa-briefcase'></i> WORK EXPERIENCE" data-bn="<i class='fa-solid fa-briefcase'></i> কর্ম অভিজ্ঞতা"><i class="fa-solid fa-briefcase"></i> WORK EXPERIENCE</h2>
                 
                 <div class="job-item">
-                    <div class="job-title">Professional Driver</div>
-                    <div class="job-duration">1 Year</div>
+                    <div class="job-title" data-en="Professional Driver" data-bn="প্রফেশনাল ড্রাইভার">Professional Driver</div>
+                    <div class="job-duration" data-en="1 Year" data-bn="১ বছর">1 Year</div>
                     <ul class="job-desc">
-                        <li>Experienced in driving and daily transportation duties.</li>
-                        <li>Focused on responsible driving and road safety.</li>
-                        <li>Committed to punctuality and professional conduct.</li>
+                        <li data-en="Experienced in driving and daily transportation duties." data-bn="ড্রাইভিং এবং দৈনন্দিন যাতায়াত সংক্রান্ত দায়িত্ব পালনে অভিজ্ঞ।">Experienced in driving and daily transportation duties.</li>
+                        <li data-en="Focused on responsible driving and road safety." data-bn="দায়িত্বশীল ড্রাইভিং এবং সড়ক নিরাপত্তার ওপর গুরুত্ব প্রদান।">Focused on responsible driving and road safety.</li>
+                        <li data-en="Committed to punctuality and professional conduct." data-bn="সময়ানুবর্তিতা এবং পেশাদার আচরণের প্রতি প্রতিশ্রুতিবদ্ধ।">Committed to punctuality and professional conduct.</li>
                     </ul>
                 </div>
 
                 <div class="job-item">
-                    <div class="job-title">Computer Operations</div>
-                    <div class="job-duration">4 Years</div>
+                    <div class="job-title" data-en="Computer Operations" data-bn="কম্পিউটার অপারেশনস">Computer Operations</div>
+                    <div class="job-duration" data-en="4 Years" data-bn="৪ বছর">4 Years</div>
                     <ul class="job-desc">
-                        <li>Four years of computer-related experience.</li>
-                        <li>Familiar with general computer operations.</li>
+                        <li data-en="Four years of computer-related experience." data-bn="কম্পিউটার সম্পর্কিত চার বছরের অভিজ্ঞতা।">Four years of computer-related experience.</li>
+                        <li data-en="Familiar with general computer operations." data-bn="সাধারণ কম্পিউটার কার্যক্রমের সাথে পরিচিত।">Familiar with general computer operations.</li>
                     </ul>
                 </div>
             </div>
 
             <!-- Education -->
             <div class="main-section">
-                <h2><i class="fa-solid fa-graduation-cap"></i> EDUCATION</h2>
+                <h2 data-en="<i class='fa-solid fa-graduation-cap'></i> EDUCATION" data-bn="<i class='fa-solid fa-graduation-cap'></i> শিক্ষাগত যোগ্যতা"><i class="fa-solid fa-graduation-cap"></i> EDUCATION</h2>
                 
                 <div class="edu-item">
-                    <div class="edu-title">B.B.A (Hon's) – Accounting Department</div>
-                    <div class="job-duration">National University (2023 – Completed)</div>
+                    <div class="edu-title" data-en="B.B.A (Hon's) – Accounting Department" data-bn="বিবিএ (সম্মান) – হিসাববিজ্ঞান বিভাগ">B.B.A (Hon's) – Accounting Department</div>
+                    <div class="job-duration" data-en="National University (2023 – Completed)" data-bn="জাতীয় বিশ্ববিদ্যালয় (২০২৩ – সম্পন্ন)">National University (2023 – Completed)</div>
                 </div>
 
                 <div class="edu-item">
-                    <div class="edu-title">HSC (Business Studies)</div>
-                    <div class="job-duration">Bodiul Alam College, Companiganj, Cumilla. </br> (2018 – Completed)</div>
+                    <div class="edu-title" data-en="HSC (Business Studies)" data-bn="এইচএসসি (ব্যবসায় শিক্ষা)">HSC (Business Studies)</div>
+                    <div class="job-duration" data-en="Bodiul Alam College, Companiganj, Cumilla. <br> (2018 – Completed)" data-bn="বদিউল আলম কলেজ, কোম্পানীগঞ্জ, কুমিল্লা। <br> (২০১৮ – সম্পন্ন)">Bodiul Alam College, Companiganj, Cumilla. </br> (2018 – Completed)</div>
                 </div>
             </div>
 
             <!-- Key Skills -->
             <div class="main-section">
-                <h2><i class="fa-solid fa-gears"></i> KEY SKILLS</h2>
+                <h2 data-en="<i class='fa-solid fa-gears'></i> KEY SKILLS" data-bn="<i class='fa-solid fa-gears'></i> মূল দক্ষতাসমূহ"><i class="fa-solid fa-gears"></i> KEY SKILLS</h2>
                 <div class="skills-grid">
                     <ul>
-                        <li>Driving and Read Safety</li>
-                        <li>Saudi Driving License</li>
-                        <li>Computer Operations</li>
+                        <li data-en="Driving and Read Safety" data-bn="ড্রাইভিং ও রোড সেফটি">Driving and Read Safety</li>
+                        <li data-en="Saudi Driving License" data-bn="সৌদি ড্রাইভিং লাইসেন্স">Saudi Driving License</li>
+                        <li data-en="Computer Operations" data-bn="কম্পিউটার অপারেশনস">Computer Operations</li>
                     </ul>
                     <ul>
-                        <li>Time Management</li>
-                        <li>Responsibility</li>
-                        <li>Punctuality</li>
+                        <li data-en="Time Management" data-bn="সময় ব্যবস্থাপনা">Time Management</li>
+                        <li data-en="Responsibility" data-bn="দায়িত্বশীলতা">Responsibility</li>
+                        <li data-en="Punctuality" data-bn="সময়ানুবর্তিতা">Punctuality</li>
                     </ul>
                 </div>
             </div>
 
             <!-- Declaration -->
             <div class="main-section">
-                <h2><i class="fa-solid fa-file-contract"></i> DECLARATION</h2>
-                <p>I hereby declare that all the information provided above is true, correct and complete to the best of my knowledge.</p>
+                <h2 data-en="<i class='fa-solid fa-file-contract'></i> DECLARATION" data-bn="<i class='fa-solid fa-file-contract'></i> ঘোষণা"><i class="fa-solid fa-file-contract"></i> DECLARATION</h2>
+                <p data-en="I hereby declare that all the information provided above is true, correct and complete to the best of my knowledge." data-bn="আমি এতদ্বারা ঘোষণা করছি যে, উপরে প্রদত্ত সমস্ত তথ্য আমার জানামতে সত্য, সঠিক ও সম্পূর্ণ।">I hereby declare that all the information provided above is true, correct and complete to the best of my knowledge.</p>
             </br>
             </br>
                 <div class="signature-area">
@@ -937,13 +970,13 @@
         <footer class="cv-footer">
             <div class="footer-content">
                 <div class="footer-left-group">
-                    <span>© 2026 MD. SAIFUL ISLAM</span>
+                    <span data-en="© 2026 MD. SAIFUL ISLAM" data-bn="© ২০২৬ এমডি. সাইফুল ইসলাম">© 2026 MD. SAIFUL ISLAM</span>
                     <div class="visitor-counter-badge" title="Total CV Views">
                         <i class="fa-solid fa-eye" style="color: #38bdf8;"></i>
-                        <span>Views:</span>
+                        <span data-en="Views:" data-bn="ভিউস:">Views:</span>
                         <span class="visitor-count" id="visitorCount">Loading...</span>
                     </div>
-                    <span style="color: #94a3b8;"><i class="fa-regular fa-clock"></i> Updated: Oct 2026</span>
+                    <span style="color: #94a3b8;"><i class="fa-regular fa-clock"></i> <span data-en="Updated: Oct 2026" data-bn="আপডেট: অক্টোবর ২০২৬">Updated: Oct 2026</span></span>
                 </div>
                 <div class="footer-socials">
                     <a href="https://www.facebook.com/freelancersaiful10" target="_blank" title="Facebook Profile"><i class="fa-brands fa-facebook-f"></i></a>
@@ -954,7 +987,7 @@
         </footer>
     </div>
 
-    <!-- Script for Visitor Counter, Speed Dial, Dark Mode, Clocks & Animations -->
+    <!-- Script for Visitor Counter, Speed Dial, Dark Mode, Language Switcher, Share Link, Clocks & Animations -->
     <script>
         // 👁️ Live Visitor Counter Integration
         async function fetchVisitorCount() {
@@ -989,6 +1022,22 @@
             toggleDialBtn.classList.toggle("active");
         });
 
+        // 🔗 Share CV Link Functionality
+        const shareBtn = document.getElementById("shareBtn");
+        const copyToast = document.getElementById("copyToast");
+
+        shareBtn.addEventListener("click", function() {
+            const currentUrl = window.location.href;
+            navigator.clipboard.writeText(currentUrl).then(() => {
+                copyToast.classList.add("show");
+                setTimeout(() => {
+                    copyToast.classList.remove("show");
+                }, 2000);
+            }).catch(err => {
+                alert("Failed to copy link!");
+            });
+        });
+
         // 🌙 Dark Mode / Light Mode Toggle Functionality
         const themeBtn = document.getElementById("themeToggleBtn");
         const themeIcon = document.getElementById("themeIcon");
@@ -1002,6 +1051,20 @@
                 themeIcon.classList.remove("fa-sun");
                 themeIcon.classList.add("fa-moon");
             }
+        });
+
+        // 🌐 Language Switcher (EN / BN) Functionality
+        const langSwitchBtn = document.getElementById("langSwitchBtn");
+        let currentLang = "en";
+
+        langSwitchBtn.addEventListener("click", function() {
+            currentLang = currentLang === "en" ? "bn" : "en";
+            langSwitchBtn.textContent = currentLang === "en" ? "BN" : "EN";
+
+            const elements = document.querySelectorAll("[data-en][data-bn]");
+            elements.forEach(el => {
+                el.innerHTML = el.getAttribute(`data-${currentLang}`);
+            });
         });
 
         // 🕒 Header Analog Clock Hands Rotation Function
