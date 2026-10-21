@@ -114,13 +114,13 @@
             font-size: 11px;
             font-weight: bold;
             text-transform: uppercase;
-            border-bottom: 1px solid #ffffff;
             padding-bottom: 3px;
             margin-bottom: 8px;
             letter-spacing: 0.5px;
             display: flex;
             align-items: center;
             gap: 6px;
+            position: relative;
         }
 
         .contact-list, .info-list {
@@ -207,6 +207,58 @@
             border-radius: 3px;
             width: 0%;
             transition: width 20s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* 🕒 Sidebar Digital Clock & Date Widget with Rotating Border Animation */
+        .sidebar-clock-box {
+            position: relative;
+            text-align: center;
+            margin-top: 12px;
+            padding: 6px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            font-size: 10px;
+            color: #cbd5e1;
+            background: rgba(255, 255, 255, 0.03);
+            overflow: hidden;
+        }
+
+        /* চারপাশ দিয়ে বর্ডার ঘোরার জন্য সুনির্দিষ্ট অ্যানিমেশন */
+        .sidebar-clock-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 2px solid transparent;
+            border-image: linear-gradient(90deg, #64b5f6, transparent, #64b5f6) 1;
+            animation: borderRotate 4s linear infinite;
+        }
+
+        @keyframes borderRotate {
+            0% {
+                clip-path: inset(0 100% 100% 0);
+            }
+            25% {
+                clip-path: inset(0 0 100% 0);
+            }
+            50% {
+                clip-path: inset(0 0 0 0);
+            }
+            75% {
+                clip-path: inset(0 0 0 100%);
+            }
+            100% {
+                clip-path: inset(100% 0 0 100%);
+            }
+        }
+
+        .sidebar-time {
+            font-weight: bold;
+            color: #64b5f6;
         }
 
         /* Right Main Content Design */
@@ -351,12 +403,38 @@
             font-weight: bold;
             text-transform: uppercase;
             color: #0c2742;
-            border-bottom: 1.5px solid #0c2742;
-            padding-bottom: 2px;
+            padding-bottom: 3px;
             margin-bottom: 6px;
             display: flex;
             align-items: center;
             gap: 6px;
+            position: relative;
+        }
+
+        /* 📈 উভয় পাশের হেডিংয়ের নিচের অ্যানিমেটেড দাগ (4px মোটা) */
+        .main-section h2::after, .sidebar-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 4px;
+            width: 0%;
+            animation: lineAnim 20s ease-in-out infinite;
+        }
+
+        .main-section h2::after {
+            background-color: #0c2742;
+        }
+
+        .sidebar-section h3::after {
+            background-color: #ffffff;
+        }
+
+        @keyframes lineAnim {
+            0% { width: 0%; }
+            50% { width: 100%; }
+            70% { width: 40%; }
+            100% { width: 100%; }
         }
 
         .main-section p {
@@ -456,6 +534,10 @@
                 width: auto !important;
                 border-right: none !important;
                 white-space: normal !important;
+            }
+            .main-section h2::after, .sidebar-section h3::after {
+                width: 100% !important;
+                animation: none !important;
             }
             .signature-img {
                 opacity: 1 !important;
@@ -562,6 +644,13 @@
                         <div class="lang-bar-fill" data-width="40%"></div>
                     </div>
                 </div>
+
+                <!-- 🕒 Sidebar Digital Clock & Date Widget with Rotating Border Animation -->
+                <div class="sidebar-clock-box">
+                    <span class="sidebar-time" id="sidebarTime">00:00:00 AM</span>
+                    <span>-</span>
+                    <span id="sidebarDate">Loading Date...</span>
+                </div>
             </div>
         </div>
 
@@ -662,7 +751,7 @@
         </div>
     </div>
 
-    <!-- Script for Analog Clock, 20s Counter, Bar Fill & Signature Animation -->
+    <!-- Script for Analog Clock, Digital Clock, 20s Counter, Bar Fill & Signature Animation -->
     <script>
         // 🕒 Header Analog Clock Hands Rotation Function
         function updateClock() {
@@ -680,6 +769,26 @@
             if (secondHand) secondHand.style.transform = `translateX(-50%) rotate(${secDeg}deg)`;
             if (minuteHand) minuteHand.style.transform = `translateX(-50%) rotate(${minDeg}deg)`;
             if (hourHand) hourHand.style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
+
+            // 🕒 Sidebar Digital Clock & Date Update (One Line)
+            const timeElement = document.getElementById('sidebarTime');
+            const dateElement = document.getElementById('sidebarDate');
+
+            if (timeElement && dateElement) {
+                let hours = now.getHours();
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                const seconds = String(now.getSeconds()).padStart(2, '0');
+                const ampm = hours >= 12 ? 'PM' : 'AM';
+                
+                hours = hours % 12;
+                hours = hours ? hours : 12;
+                const formattedHours = String(hours).padStart(2, '0');
+
+                timeElement.textContent = `${formattedHours}:${minutes}:${seconds} ${ampm}`;
+
+                const options = { year: 'numeric', month: 'short', day: 'numeric' };
+                dateElement.textContent = now.toLocaleDateString('en-US', options);
+            }
         }
 
         setInterval(updateClock, 1000);
