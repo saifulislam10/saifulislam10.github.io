@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MD. SAIFUL ISLAM - CV</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #2c3e50;
+            color: #333;
+            padding: 10px 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        /* 📄 মোবাইলে স্বাভাবিক স্ক্রীন সাইজ, প্রিন্টে A4 সাইজ */
+        .cv-container {
+            width: 100%;
+            max-width: 800px;
+            background: #ffffff;
+            display: grid;
+            grid-template-columns: 34% 66%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        /* Print Button */
+        .print-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #0b2545;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Left Sidebar Design */
+        .sidebar {
+            background-color: #0c2742;
+            color: #ffffff;
+            padding: 20px 14px;
+        }
+
+        .profile-img-container {
+            text-align: center;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .profile-img-container a {
+            display: inline-block;
+            position: relative;
+            text-decoration: none;
+        }
+
+        .profile-img {
+            width: 105px;
+            height: 105px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ffffff;
+        }
+
+        .fb-badge {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            background: #1877f2;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            border: 2px solid white;
+        }
+
+        .sidebar-section {
+            margin-bottom: 16px;
+        }
+
+        .sidebar-section h3 {
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-bottom: 1px solid #ffffff;
+            padding-bottom: 3px;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .contact-list, .info-list {
+            list-style: none;
+            font-size: 11px;
+        }
+
+        .contact-list li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            word-break: break-word;
+            line-height: 1.3;
+        }
+
+        .contact-list i {
+            margin-top: 2px;
+            width: 12px;
+        }
+
+        .contact-list a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .whatsapp-tag {
+            background: #25d366;
+            color: white;
+            font-size: 8px;
+            padding: 1px 4px;
+            border-radius: 3px;
+            margin-left: 3px;
+            font-weight: bold;
+        }
+
+        .info-list table {
+            width: 100%;
+            font-size: 11px;
+            border-collapse: collapse;
+        }
+
+        .info-list td {
+            padding: 2.5px 0;
+            vertical-align: top;
+        }
+
+        .info-list td:nth-child(1) {
+            width: 42%;
+            color: #e2e8f0;
+        }
+        .info-list td:nth-child(2) {
+            width: 4%;
+        }
+        .info-list td:nth-child(3) {
+            width: 54%;
+            font-weight: 600;
+        }
+
+        /* Languages & Percentage Bars */
+        .lang-container {
+            margin-bottom: 8px;
+        }
+
+        .lang-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            margin-bottom: 2px;
+        }
+
+        .lang-bar-bg {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.2);
+            height: 5px;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .lang-bar-fill {
+            height: 100%;
+            background-color: #64b5f6;
+            border-radius: 3px;
+        }
+
+        /* Right Main Content Design */
+        .main-content {
+            padding: 20px;
+        }
+
+        .header-title {
+            background-color: #0c2742;
+            color: white;
+            padding: 10px 14px;
+            margin: -20px -20px 16px -20px;
+            border-radius: 0 0 4px 0;
+        }
+
+        .header-title h1 {
+            font-size: 19px;
+            letter-spacing: 0.5px;
+            font-weight: bold;
+        }
+
+        .header-title p {
+            font-size: 11px;
+            color: #cbd5e1;
+            margin-top: 2px;
+        }
+
+        .main-section {
+            margin-bottom: 14px;
+        }
+
+        .main-section h2 {
+            font-size: 11.5px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #0c2742;
+            border-bottom: 1.5px solid #0c2742;
+            padding-bottom: 2px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .main-section p {
+            font-size: 11px;
+            line-height: 1.4;
+            color: #334155;
+        }
+
+        .job-item, .edu-item {
+            margin-bottom: 8px;
+        }
+
+        .job-title, .edu-title {
+            font-weight: bold;
+            font-size: 11.5px;
+            color: #0f172a;
+        }
+
+        .job-duration, .edu-duration {
+            font-size: 10px;
+            color: #64748b;
+            margin-bottom: 2px;
+        }
+
+        .job-desc {
+            list-style-type: disc;
+            margin-left: 14px;
+            font-size: 11px;
+            color: #334155;
+            line-height: 1.35;
+        }
+
+        .job-desc li {
+            margin-bottom: 2px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            font-size: 11px;
+            color: #334155;
+        }
+
+        .skills-grid ul {
+            list-style-type: disc;
+            margin-left: 14px;
+        }
+
+        .skills-grid li {
+            margin-bottom: 2px;
+        }
+
+        .signature-area {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .signature-img {
+            font-family: 'Brush Script MT', cursive, sans-serif;
+            font-size: 20px;
+            color: #0c2742;
+            margin-bottom: 1px;
+        }
+
+        .signature-line {
+            width: 140px;
+            border-bottom: 1px solid #94a3b8;
+            margin-bottom: 2px;
+        }
+
+        /* 🖨️ প্রিন্ট করার সময় নিখুঁত A4 সাইজে সেট হবে */
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 0;
+            }
+            body {
+                background: white;
+                padding: 0;
+            }
+            .print-btn {
+                display: none;
+            }
+            .cv-container {
+                width: 100% !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                grid-template-columns: 34% 66%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Print / Save PDF Button -->
+    <button class="print-btn" id="printBtn">
+        <i class="fa-solid fa-print"></i> Print / Save PDF
+    </button>
+
+    <div class="cv-container">
+        <!-- Left Sidebar -->
+        <div class="sidebar">
+            <!-- Profile Image (2026.jpg) -->
+            <div class="profile-img-container">
+                <a href="https://www.facebook.com/freelancersaiful10" target="_blank" title="Visit Facebook Profile">
+                    <img src="2026.jpg" alt="MD. SAIFUL ISLAM" class="profile-img">
+                    <span class="fb-badge"><i class="fa-brands fa-facebook"></i></span>
+                </a>
+            </div>
+
+            <!-- Contact Section -->
+            <div class="sidebar-section">
+                <h3><i class="fa-solid fa-address-book"></i> CONTACT</h3>
+                <ul class="contact-list">
+                    <li>
+                        <i class="fa-solid fa-phone"></i>
+                        <a href="tel:+8801853944410">+8801853944410</a>
+                    </li>
+                    <li>
+                        <i class="fa-brands fa-whatsapp"></i>
+                        <div>
+                            <a href="https://wa.me/966564010328" target="_blank">+966564010328</a>
+                            <span class="whatsapp-tag">WhatsApp</span>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-envelope"></i>
+                        <a href="mailto:freelancersaiful10@gmail.com">freelancersaiful10@gmail.com</a>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>Al-Rahmaniya, Jeddah, Saudi Arabia.<br><small>(Current Address)</small></span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-house"></i>
+                        <span>Pascihim Fatehabad, Debidwar - 3542, Debidwer Powrosobah, Word No 03, Holding No 655, Debidwer Cumilla.<br><small>(Permanent Address)</small></span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Personal Information -->
+            <div class="sidebar-section">
+                <h3><i class="fa-solid fa-user"></i> PERSONAL INFORMATION</h3>
+                <div class="info-list">
+                    <table>
+                        <tr><td>Full Name</td><td>:</td><td>MD. SAIFUL ISLAM</td></tr>
+                        <tr><td>Father's Name</td><td>:</td><td>SHOPON MIA</td></tr>
+                        <tr><td>Mother's Name</td><td>:</td><td>TASLIMA AKTER</td></tr>
+                        <tr><td>Date of Birth</td><td>:</td><td>08 September 2001</td></tr>
+                        <tr><td>Nationality</td><td>:</td><td>Bangladeshi</td></tr>
+                        <tr><td>NID No.</td><td>:</td><td>-</td></tr>
+                        <tr><td>Blood Group</td><td>:</td><td>B+</td></tr>
+                        <tr><td>Marital Status</td><td>:</td><td>Married</td></tr>
+                        <tr><td>Religion</td><td>:</td><td>Islam</td></tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Languages with Percentage Bars -->
+            <div class="sidebar-section">
+                <h3><i class="fa-solid fa-language"></i> LANGUAGES</h3>
+                
+                <div class="lang-container">
+                    <div class="lang-info">
+                        <span>Bangla (Mother Tongue)</span>
+                        <span>100%</span>
+                    </div>
+                    <div class="lang-bar-bg">
+                        <div class="lang-bar-fill" style="width: 100%;"></div>
+                    </div>
+                </div>
+
+                <div class="lang-container">
+                    <div class="lang-info">
+                        <span>English</span>
+                        <span>50%</span>
+                    </div>
+                    <div class="lang-bar-bg">
+                        <div class="lang-bar-fill" style="width: 50%;"></div>
+                    </div>
+                </div>
+
+                <div class="lang-container">
+                    <div class="lang-info">
+                        <span>Arabic</span>
+                        <span>40%</span>
+                    </div>
+                    <div class="lang-bar-bg">
+                        <div class="lang-bar-fill" style="width: 40%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Main Content -->
+        <div class="main-content">
+            <div class="header-title">
+                <h1>MD. SAIFUL ISLAM</h1>
+                <p>B.B.A (Hon's), Accounting Department - National University (NU)</p>
+            </div>
+
+            <!-- Professional Summary -->
+            <div class="main-section">
+                <h2><i class="fa-solid fa-user-tie"></i> PROFESSIONAL SUMMARY</h2>
+                <p>I am a responsible and motivated professional driver with 1 year of driving experience and a valid Saudi driving license. I have 4 years of computer experience and strong knowledge in computer operations. I am seeking a Driver position where I can contribute my skills, maintain safety, and perform with honesty and dedication.</p>
+            </div>
+
+            <!-- Work Experience -->
+            <div class="main-section">
+                <h2><i class="fa-solid fa-briefcase"></i> WORK EXPERIENCE</h2>
+                
+                <div class="job-item">
+                    <div class="job-title">Professional Driver</div>
+                    <div class="job-duration">1 Year</div>
+                    <ul class="job-desc">
+                        <li>Experienced in driving and daily transportation duties.</li>
+                        <li>Focused on responsible driving and road safety.</li>
+                        <li>Committed to punctuality and professional conduct.</li>
+                    </ul>
+                </div>
+
+                <div class="job-item">
+                    <div class="job-title">Computer Operations</div>
+                    <div class="job-duration">4 Years</div>
+                    <ul class="job-desc">
+                        <li>Four years of computer-related experience.</li>
+                        <li>Familiar with general computer operations.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Education -->
+            <div class="main-section">
+                <h2><i class="fa-solid fa-graduation-cap"></i> EDUCATION</h2>
+                
+                <div class="edu-item">
+                    <div class="edu-title">B.B.A (Hon's) – Accounting Department</div>
+                    <div class="job-duration">National University (2023 – Completed)</div>
+                </div>
+
+                <div class="edu-item">
+                    <div class="edu-title">HSC (Business Studies)</div>
+                    <div class="job-duration">Bodiul Alam College, Companiganj, Cumilla (2018 – Completed)</div>
+                </div>
+            </div>
+
+            <!-- Key Skills -->
+            <div class="main-section">
+                <h2><i class="fa-solid fa-gears"></i> KEY SKILLS</h2>
+                <div class="skills-grid">
+                    <ul>
+                        <li>Driving and Read Safety</li>
+                        <li>Saudi Driving License</li>
+                        <li>Computer Operations</li>
+                    </ul>
+                    <ul>
+                        <li>Time Management</li>
+                        <li>Responsibility</li>
+                        <li>Punctuality</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Declaration -->
+            <div class="main-section">
+                <h2><i class="fa-solid fa-file-contract"></i> DECLARATION</h2>
+                <p>I hereby declare that all the information provided above is true, correct and complete to the best of my knowledge.</p>
+                
+                <div class="signature-area">
+                    <div class="signature-img">Md. Saiful Islam</div>
+                    <div class="signature-line"></div>
+                    <p style="font-weight: bold; color: #1f2937; font-size: 11px;">MD. SAIFUL ISLAM</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Print Script -->
+    <script>
+        document.getElementById("printBtn").addEventListener("click", function() {
+            window.print();
+        });
+    </script>
+</body>
+</html>
