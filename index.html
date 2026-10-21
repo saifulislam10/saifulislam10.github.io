@@ -169,12 +169,30 @@
             text-decoration: none;
         }
 
+        /* ✨ জীবন্ত ও জ্যান্ত ফিল দেওয়ার জন্য 'Breathing & Living' অ্যানিমেশন */
         .profile-img {
             width: 105px;
             height: 105px;
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid #ffffff;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
+            animation: livingBreathingEffect 4s infinite ease-in-out;
+        }
+
+        @keyframes livingBreathingEffect {
+            0% {
+                transform: scale(1) translateY(0);
+                box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+            }
+            50% {
+                transform: scale(1.04) translateY(-3px);
+                box-shadow: 0 0 25px rgba(56, 189, 248, 0.9), 0 0 5px rgba(255, 255, 255, 0.8);
+            }
+            100% {
+                transform: scale(1) translateY(0);
+                box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+            }
         }
 
         .fb-badge {
@@ -692,6 +710,10 @@
                 opacity: 1 !important;
                 color: #0c2742 !important;
             }
+            .profile-img {
+                animation: none !important;
+                box-shadow: 3px solid #ffffff !important;
+            }
         }
     </style>
 </head>
@@ -716,7 +738,7 @@
     <div class="cv-container">
         <!-- Left Sidebar -->
         <div class="sidebar">
-            <!-- Profile Image (2026.jpg) -->
+            <!-- Profile Image (2026.jpg) - Living Breathing Effect -->
             <div class="profile-img-container">
                 <a href="https://www.facebook.com/freelancersaiful10" target="_blank" title="Visit Facebook Profile">
                     <img src="2026.jpg" alt="MD. SAIFUL ISLAM" class="profile-img">
