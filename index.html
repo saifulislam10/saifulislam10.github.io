@@ -37,7 +37,7 @@
             overflow: hidden;
         }
 
-        /* Print Button */
+        /* Print Button - শুধুমাত্র আইকন সহ গোল আকৃতি */
         .print-btn {
             position: fixed;
             bottom: 20px;
@@ -45,16 +45,22 @@
             background-color: #0b2545;
             color: white;
             border: none;
-            padding: 12px 20px;
-            border-radius: 30px;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
             cursor: pointer;
-            font-size: 14px;
-            font-weight: bold;
+            font-size: 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.4);
             z-index: 1000;
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .print-btn:hover {
+            background-color: #13385e;
+            transform: scale(1.05);
         }
 
         /* Left Sidebar Design */
@@ -76,20 +82,12 @@
             text-decoration: none;
         }
 
-        /* 🖼️ Profile Image 5s Fade Animation */
         .profile-img {
             width: 105px;
             height: 105px;
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid #ffffff;
-            animation: profileFade 10s infinite ease-in-out;
-        }
-
-        @keyframes profileFade {
-            0%, 50% { opacity: 1; }  /* ৫ সেকেন্ড সম্পূর্ণ ক্লিয়ার থাকবে */
-            75% { opacity: 0.3; }     /* মাঝে হালকা হবে */
-            100% { opacity: 1; }     /* আবার ক্লিয়ার হবে */
         }
 
         .fb-badge {
@@ -202,13 +200,13 @@
             overflow: hidden;
         }
 
-        /* 📊 5-Second Slow Loading Animation on First Open */
+        /* 📊 ২০ সেকেন্ড ধরে স্লো ফিলাপ হওয়ার অ্যানিমেশন */
         .lang-bar-fill {
             height: 100%;
             background-color: #64b5f6;
             border-radius: 3px;
             width: 0%;
-            transition: width 5s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: width 20s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         /* Right Main Content Design */
@@ -222,18 +220,126 @@
             padding: 10px 14px;
             margin: -20px -20px 16px -20px;
             border-radius: 0 0 4px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
+        .header-text-area {
+            overflow: hidden;
+        }
+
+        /* ⏱️ হেডার টাইটেলে ছোট ও সুন্দর এনালগ ঘড়ি (Analog Clock Widget) - সংখ্যা সহ */
+        .analog-clock {
+            width: 52px;
+            height: 52px;
+            background: #0c2742;
+            border: 2px solid #64b5f6;
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            flex-shrink: 0;
+            margin-left: 10px;
+        }
+
+        .clock-number {
+            position: absolute;
+            font-size: 8px;
+            font-weight: bold;
+            color: #ffffff;
+            text-align: center;
+            width: 10px;
+            height: 10px;
+            line-height: 10px;
+        }
+
+        /* ১ থেকে ১২ সংখ্যার পজিশন */
+        .num-12 { top: 2px; left: 50%; transform: translateX(-50%); }
+        .num-3  { top: 50%; right: 3px; transform: translateY(-50%); }
+        .num-6  { bottom: 2px; left: 50%; transform: translateX(-50%); }
+        .num-9  { top: 50%; left: 3px; transform: translateY(-50%); }
+
+        .analog-clock .center-dot {
+            width: 5px;
+            height: 5px;
+            background: #64b5f6;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom;
+            border-radius: 2px;
+        }
+
+        .hour-hand {
+            width: 2.5px;
+            height: 12px;
+            background: #ffffff;
+            transform: translateX(-50%) rotate(0deg);
+            z-index: 3;
+        }
+
+        .minute-hand {
+            width: 1.5px;
+            height: 16px;
+            background: #cbd5e1;
+            transform: translateX(-50%) rotate(0deg);
+            z-index: 2;
+        }
+
+        .second-hand {
+            width: 1px;
+            height: 18px;
+            background: #e74c3c;
+            transform: translateX(-50%) rotate(0deg);
+            z-index: 4;
+        }
+
+        /* ✍️ নাম ও ডিগ্রির ধীরগতির সিকোয়েন্সিয়াল অ্যানিমেশন */
         .header-title h1 {
             font-size: 19px;
             letter-spacing: 0.5px;
             font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
+            animation: typeName 14s infinite;
         }
 
         .header-title p {
             font-size: 11px;
             color: #cbd5e1;
             margin-top: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
+            animation: typeEdu 14s infinite;
+        }
+
+        /* প্রথমে নাম টাইপ হবে, সবার শেষে নাম মুছে যাবে */
+        @keyframes typeName {
+            0% { width: 0; }
+            15% { width: 17ch; }   /* নাম টাইপ শেষ */
+            70% { width: 17ch; }   /* বিবিএ টাইপ ও মুছে যাওয়ার সময় নাম স্থির থাকবে */
+            85% { width: 0; }      /* নাম মুছে যাবে */
+            100% { width: 0; }
+        }
+
+        /* নাম টাইপ হওয়ার পর বিবিএ টাইপ শুরু হবে, এবং নাম মোছার আগে বিবিএ মুছে যাবে */
+        @keyframes typeEdu {
+            0%, 15% { width: 0; }  /* নাম টাইপ হওয়ার আগ পর্যন্ত অপেক্ষা */
+            30% { width: 50ch; }   /* বিবিএ টাইপ শেষ */
+            55% { width: 50ch; }   /* বিবিএ স্থির থাকবে */
+            70% { width: 0; }      /* বিবিএ আগে মুছে যাবে */
+            100% { width: 0; }
         }
 
         .main-section {
@@ -310,11 +416,14 @@
             flex-direction: column;
         }
 
+        /* হাতের লেখার সিগনেচারটি শুরু থেকে ১৫ সেকেন্ড ধরে আস্তে আস্তে ভেসে উঠবে */
         .signature-img {
             font-family: 'Brush Script MT', cursive, sans-serif;
             font-size: 20px;
             color: #0c2742;
             margin-bottom: 1px;
+            opacity: 0;
+            transition: opacity 15s ease-in-out;
         }
 
         .signature-line {
@@ -342,14 +451,23 @@
                 border-radius: 0 !important;
                 grid-template-columns: 34% 66%;
             }
+            .header-title h1, .header-title p {
+                animation: none !important;
+                width: auto !important;
+                border-right: none !important;
+                white-space: normal !important;
+            }
+            .signature-img {
+                opacity: 1 !important;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Print / Save PDF Button -->
-    <button class="print-btn" id="printBtn">
-        <i class="fa-solid fa-print"></i> Print / Save PDF
+    <!-- Print / Save PDF Button (Only Icon) -->
+    <button class="print-btn" id="printBtn" title="Print / Save PDF">
+        <i class="fa-solid fa-print"></i>
     </button>
 
     <div class="cv-container">
@@ -411,14 +529,14 @@
                 </div>
             </div>
 
-            <!-- Languages with Percentage Bars -->
+            <!-- Languages with Percentage Counters -->
             <div class="sidebar-section">
                 <h3><i class="fa-solid fa-language"></i> LANGUAGES</h3>
                 
                 <div class="lang-container">
                     <div class="lang-info">
                         <span>Bangla (Mother Tongue)</span>
-                        <span>100%</span>
+                        <span class="lang-percent" data-target="100">0%</span>
                     </div>
                     <div class="lang-bar-bg">
                         <div class="lang-bar-fill" data-width="100%"></div>
@@ -428,7 +546,7 @@
                 <div class="lang-container">
                     <div class="lang-info">
                         <span>English</span>
-                        <span>50%</span>
+                        <span class="lang-percent" data-target="50">0%</span>
                     </div>
                     <div class="lang-bar-bg">
                         <div class="lang-bar-fill" data-width="50%"></div>
@@ -438,7 +556,7 @@
                 <div class="lang-container">
                     <div class="lang-info">
                         <span>Arabic</span>
-                        <span>40%</span>
+                        <span class="lang-percent" data-target="40">0%</span>
                     </div>
                     <div class="lang-bar-bg">
                         <div class="lang-bar-fill" data-width="40%"></div>
@@ -450,8 +568,21 @@
         <!-- Right Main Content -->
         <div class="main-content">
             <div class="header-title">
-                <h1>MD. SAIFUL ISLAM</h1>
-                <p>B.B.A (Hon's), Accounting Department </br> National University (NU)</p>
+                <div class="header-text-area">
+                    <h1>MD. SAIFUL ISLAM</h1>
+                    <p>B.B.A (Hon's), Accounting Department </br> National University (NU)</p>
+                </div>
+                <!-- 🕒 Header Right Analog Clock Widget with Numbers (12, 3, 6, 9) -->
+                <div class="analog-clock">
+                    <span class="clock-number num-12">12</span>
+                    <span class="clock-number num-3">3</span>
+                    <span class="clock-number num-6">6</span>
+                    <span class="clock-number num-9">9</span>
+                    <div class="hand hour-hand" id="hourHand"></div>
+                    <div class="hand minute-hand" id="minuteHand"></div>
+                    <div class="hand second-hand" id="secondHand"></div>
+                    <div class="center-dot"></div>
+                </div>
             </div>
 
             <!-- Professional Summary -->
@@ -522,11 +653,8 @@
                 <p>I hereby declare that all the information provided above is true, correct and complete to the best of my knowledge.</p>
             </br>
             </br>
-            </br>
-            </br>
-            </br>
                 <div class="signature-area">
-                    <div class="signature-img">Md. Saiful Islam</div>
+                    <div class="signature-img" id="signatureText">Md. Saiful Islam</div>
                     <div class="signature-line"></div>
                     <p style="font-weight: bold; color: #1f2937; font-size: 11px;">MD. SAIFUL ISLAM</p>
                 </div>
@@ -534,15 +662,64 @@
         </div>
     </div>
 
-    <!-- Animation & Print Script -->
+    <!-- Script for Analog Clock, 20s Counter, Bar Fill & Signature Animation -->
     <script>
+        // 🕒 Header Analog Clock Hands Rotation Function
+        function updateClock() {
+            const now = new Date();
+
+            // Analog Clock Hands Rotation
+            const secDeg = (now.getSeconds() / 60) * 360;
+            const minDeg = ((now.getMinutes() + now.getSeconds() / 60) / 60) * 360;
+            const hourDeg = ((now.getHours() % 12 + now.getMinutes() / 60) / 12) * 360;
+
+            const secondHand = document.getElementById('secondHand');
+            const minuteHand = document.getElementById('minuteHand');
+            const hourHand = document.getElementById('hourHand');
+
+            if (secondHand) secondHand.style.transform = `translateX(-50%) rotate(${secDeg}deg)`;
+            if (minuteHand) minuteHand.style.transform = `translateX(-50%) rotate(${minDeg}deg)`;
+            if (hourHand) hourHand.style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock(); // Initial call
+
+        // Page Load Animations
         window.addEventListener('load', function() {
             setTimeout(function() {
+                // 1. Bar Animation (20 Seconds)
                 const bars = document.querySelectorAll('.lang-bar-fill');
                 bars.forEach(bar => {
                     const targetWidth = bar.getAttribute('data-width');
                     bar.style.width = targetWidth;
                 });
+
+                // 2. Number Counter Animation (0% to Target in 20 Seconds)
+                const counters = document.querySelectorAll('.lang-percent');
+                counters.forEach(counter => {
+                    const target = parseInt(counter.getAttribute('data-target'));
+                    let current = 0;
+                    const duration = 20000; // 20 Seconds in milliseconds
+                    const incrementTime = duration / target; // Time per 1%
+
+                    const timer = setInterval(() => {
+                        current += 1;
+                        counter.textContent = current + '%';
+                        if (current >= target) {
+                            clearInterval(timer);
+                        }
+                    }, incrementTime);
+                });
+
+                // 3. Signature Smooth Fade-in Animation
+                setTimeout(function() {
+                    const sigText = document.getElementById('signatureText');
+                    if (sigText) {
+                        sigText.style.opacity = '1';
+                    }
+                }, 100);
+
             }, 300);
         });
 
