@@ -76,12 +76,20 @@
             text-decoration: none;
         }
 
+        /* 🖼️ Profile Image 5s Fade Animation */
         .profile-img {
             width: 105px;
             height: 105px;
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid #ffffff;
+            animation: profileFade 10s infinite ease-in-out;
+        }
+
+        @keyframes profileFade {
+            0%, 50% { opacity: 1; }  /* ৫ সেকেন্ড সম্পূর্ণ ক্লিয়ার থাকবে */
+            75% { opacity: 0.3; }     /* মাঝে হালকা হবে */
+            100% { opacity: 1; }     /* আবার ক্লিয়ার হবে */
         }
 
         .fb-badge {
@@ -194,10 +202,13 @@
             overflow: hidden;
         }
 
+        /* 📊 5-Second Slow Loading Animation on First Open */
         .lang-bar-fill {
             height: 100%;
             background-color: #64b5f6;
             border-radius: 3px;
+            width: 0%;
+            transition: width 5s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         /* Right Main Content Design */
@@ -410,7 +421,7 @@
                         <span>100%</span>
                     </div>
                     <div class="lang-bar-bg">
-                        <div class="lang-bar-fill" style="width: 100%;"></div>
+                        <div class="lang-bar-fill" data-width="100%"></div>
                     </div>
                 </div>
 
@@ -420,7 +431,7 @@
                         <span>50%</span>
                     </div>
                     <div class="lang-bar-bg">
-                        <div class="lang-bar-fill" style="width: 50%;"></div>
+                        <div class="lang-bar-fill" data-width="50%"></div>
                     </div>
                 </div>
 
@@ -430,7 +441,7 @@
                         <span>40%</span>
                     </div>
                     <div class="lang-bar-bg">
-                        <div class="lang-bar-fill" style="width: 40%;"></div>
+                        <div class="lang-bar-fill" data-width="40%"></div>
                     </div>
                 </div>
             </div>
@@ -523,8 +534,18 @@
         </div>
     </div>
 
-    <!-- Print Script -->
+    <!-- Animation & Print Script -->
     <script>
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const bars = document.querySelectorAll('.lang-bar-fill');
+                bars.forEach(bar => {
+                    const targetWidth = bar.getAttribute('data-width');
+                    bar.style.width = targetWidth;
+                });
+            }, 300);
+        });
+
         document.getElementById("printBtn").addEventListener("click", function() {
             window.print();
         });
