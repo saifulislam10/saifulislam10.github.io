@@ -21,6 +21,8 @@
             --job-title: #0f172a;
             --job-duration: #64748b;
             --clock-bg: #0c2742;
+            --footer-bg: #091a2c;
+            --footer-text: #cbd5e1;
         }
 
         /* 🌙 Dark Mode Theme Colors */
@@ -37,6 +39,8 @@
             --job-title: #38bdf8;
             --job-duration: #94a3b8;
             --clock-bg: #091a2c;
+            --footer-bg: #050e17;
+            --footer-text: #94a3b8;
         }
 
         * {
@@ -50,7 +54,7 @@
         body {
             background-color: var(--bg-body);
             color: var(--text-main);
-            padding: 10px 0;
+            padding: 10px 0 30px 0;
             display: flex;
             justify-content: center;
             align-items: flex-start;
@@ -67,6 +71,7 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
             border-radius: 4px;
             overflow: hidden;
+            position: relative;
         }
 
         /* 🎯 Floating Speed Dial Menu Container */
@@ -102,13 +107,11 @@
             background-color: #13385e;
         }
 
-        /* অ্যারো বাটন এক্টিভ হলে আইকন ঘুরে যাবে */
         .main-toggle-btn.active {
             transform: rotate(180deg);
             background-color: #e74c3c;
         }
 
-        /* Sub Action Buttons (Hidden by default) */
         .sub-buttons {
             display: flex;
             flex-direction: column;
@@ -284,7 +287,6 @@
             overflow: hidden;
         }
 
-        /* 📊 ২০ সেকেন্ড ধরে স্লো ফিলাপ হওয়ার অ্যানিমেশন */
         .lang-bar-fill {
             height: 100%;
             background-color: #64b5f6;
@@ -293,11 +295,11 @@
             transition: width 20s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        /* 🕒 Sidebar Digital Clock & Date Widget with Rotating Border Animation */
+        /* 🕒 Sidebar Digital Clock Widget */
         .sidebar-clock-box {
             position: relative;
             text-align: center;
-            margin-top: 12px;
+            margin-top: 10px;
             padding: 6px 0;
             display: flex;
             justify-content: center;
@@ -354,7 +356,6 @@
             overflow: hidden;
         }
 
-        /* ⏱️ হেডার টাইটেলে ছোট ও সুন্দর এনালগ ঘড়ি */
         .analog-clock {
             width: 52px;
             height: 52px;
@@ -427,7 +428,6 @@
             z-index: 4;
         }
 
-        /* ✍️ নাম ও ডিগ্রির ধীরগতির সিকোয়েন্সিয়াল অ্যানিমেশন */
         .header-title h1 {
             font-size: 19px;
             letter-spacing: 0.5px;
@@ -481,7 +481,6 @@
             position: relative;
         }
 
-        /* 📈 উভয় পাশের হেডিংয়ের নিচের অ্যানিমেটেড দাগ (4px মোটা) */
         .main-section h2::after, .sidebar-section h3::after {
             content: '';
             position: absolute;
@@ -579,6 +578,72 @@
             margin-bottom: 2px;
         }
 
+        /* 🔻 Modern Footer Design (Single Line with Active Brand Colored Icons) */
+        .cv-footer {
+            grid-column: 1 / -1;
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 10px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 9.5px;
+            border-top: 2px solid rgba(255, 255, 255, 0.08);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .footer-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .footer-left-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .visitor-counter-badge {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.06);
+            padding: 2px 6px;
+            border-radius: 3px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .visitor-count {
+            font-weight: bold;
+            color: #38bdf8;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .footer-socials a {
+            font-size: 13px;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+        .footer-socials a:hover {
+            transform: translateY(-2px);
+        }
+
+        /* 🎨 Specific Brand Colors for Footer Icons */
+        .footer-socials .fa-facebook-f { color: #1877f2; }
+        .footer-socials .fa-whatsapp { color: #25d366; }
+        .footer-socials .fa-envelope { color: #ea4335; }
+
         /* 🖨️ প্রিন্ট করার সময় নিখুঁত A4 সাইজে সেট হবে */
         @media print {
             @page {
@@ -590,7 +655,7 @@
                 color: #333 !important;
                 padding: 0;
             }
-            .speed-dial-container {
+            .speed-dial-container, .cv-footer {
                 display: none !important;
             }
             .cv-container {
@@ -634,17 +699,14 @@
 
     <!-- 🎯 Floating Speed Dial Menu (Popup Menu) -->
     <div class="speed-dial-container" id="speedDial">
-        <!-- Main Arrow Toggle Button -->
         <button class="main-toggle-btn" id="toggleDialBtn" title="Open Menu">
             <i class="fa-solid fa-chevron-up"></i>
         </button>
 
-        <!-- Sub Action Buttons (Dark Mode & Direct PDF Download Button) -->
         <div class="sub-buttons">
             <button class="theme-btn" id="themeToggleBtn" title="Toggle Dark/Light Mode">
                 <i class="fa-solid fa-moon" id="themeIcon"></i>
             </button>
-            <!-- 📄 Direct PDF Download Link for cv2200.pdf -->
             <a href="cv2200.pdf" download="MD_SAIFUL_ISLAM_CV.pdf" class="print-btn" title="Download PDF CV">
                 <i class="fa-solid fa-file-pdf"></i>
             </a>
@@ -760,7 +822,7 @@
                     <h1>MD. SAIFUL ISLAM</h1>
                     <p>B.B.A (Hon's), Accounting Department </br> National University (NU)</p>
                 </div>
-                <!-- 🕒 Header Right Analog Clock Widget with Numbers (12, 3, 6, 9) -->
+                <!-- 🕒 Header Right Analog Clock Widget -->
                 <div class="analog-clock">
                     <span class="clock-number num-12">12</span>
                     <span class="clock-number num-3">3</span>
@@ -848,10 +910,54 @@
                 </div>
             </div>
         </div>
+
+        <!-- 🔻 Interactive CV Footer (Single Line with Active Brand Colored Icons) -->
+        <footer class="cv-footer">
+            <div class="footer-content">
+                <div class="footer-left-group">
+                    <span>© 2026 MD. SAIFUL ISLAM</span>
+                    <div class="visitor-counter-badge" title="Total CV Views">
+                        <i class="fa-solid fa-eye" style="color: #38bdf8;"></i>
+                        <span>Views:</span>
+                        <span class="visitor-count" id="visitorCount">Loading...</span>
+                    </div>
+                    <span style="color: #94a3b8;"><i class="fa-regular fa-clock"></i> Updated: Oct 2026</span>
+                </div>
+                <div class="footer-socials">
+                    <a href="https://www.facebook.com/freelancersaiful10" target="_blank" title="Facebook Profile"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://wa.me/966564010328" target="_blank" title="WhatsApp Chat"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="mailto:freelancersaiful10@gmail.com" title="Send Email"><i class="fa-solid fa-envelope"></i></a>
+                </div>
+            </div>
+        </footer>
     </div>
 
-    <!-- Script for Speed Dial, Dark Mode, Clocks & Animations -->
+    <!-- Script for Visitor Counter, Speed Dial, Dark Mode, Clocks & Animations -->
     <script>
+        // 👁️ Live Visitor Counter Integration
+        async function fetchVisitorCount() {
+            const counterElement = document.getElementById('visitorCount');
+            const namespace = "mdsaifulislam_cv_2026";
+            const key = "pageviews";
+
+            try {
+                const response = await fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    counterElement.textContent = String(data.value).padStart(5, '0');
+                } else {
+                    throw new Error("API Limit");
+                }
+            } catch (error) {
+                let localCount = localStorage.getItem('cv_visitor_views') || 100;
+                localCount = parseInt(localCount) + 1;
+                localStorage.setItem('cv_visitor_views', localCount);
+                counterElement.textContent = String(localCount).padStart(5, '0');
+            }
+        }
+
+        fetchVisitorCount();
+
         // 🎯 Speed Dial Arrow Popup Toggle Functionality
         const speedDial = document.getElementById("speedDial");
         const toggleDialBtn = document.getElementById("toggleDialBtn");
@@ -880,7 +986,6 @@
         function updateClock() {
             const now = new Date();
 
-            // Analog Clock Hands Rotation
             const secDeg = (now.getSeconds() / 60) * 360;
             const minDeg = ((now.getMinutes() + now.getSeconds() / 60) / 60) * 360;
             const hourDeg = ((now.getHours() % 12 + now.getMinutes() / 60) / 12) * 360;
@@ -932,8 +1037,8 @@
                 counters.forEach(counter => {
                     const target = parseInt(counter.getAttribute('data-target'));
                     let current = 0;
-                    const duration = 20000; // 20 Seconds in milliseconds
-                    const incrementTime = duration / target; // Time per 1%
+                    const duration = 20000;
+                    const incrementTime = duration / target;
 
                     const timer = setInterval(() => {
                         current += 1;
